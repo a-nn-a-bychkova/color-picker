@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import style from './ColorPicker.module.css';
 import { ChevronDown } from 'react-feather';
 import Palette from '../Palette';
@@ -7,9 +7,24 @@ import UserPalette from '../UserPalette';
 function ColorPicker({ value, onChange, colors, onChangePalette }) {
   const [showPalette, setShowPalette] = useState(false);
   const [showUserPalette, setShowUserPalette] = useState(false);
+  const [temporaryColor, setTemporaryColor] = useState('#00ff00');
+  const [squareColor, setSquareColor] = useState(value);
 
-  // const elementRef = useRef();
-  useEffect(() => {}, []);
+  const elRef = useRef();
+
+  useEffect(() => {
+    function handleMouseUp(event) {
+      const isElementChild = elRef.current.contains(event.target);
+      if (!isElementChild) {
+        setShowPalette(false);
+        setShowUserPalette(false);
+      }
+    }
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
 
   function togglePalette() {
     if (showUserPalette) {
@@ -27,7 +42,6 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
 
   const handleSquareClick = event => {
     event.preventDefault();
-    event.stopPropagation();
     togglePalette();
   };
 
@@ -38,16 +52,30 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
 
   const handleColorChange = color => {
     onChange(color);
+    setSquareColor(color);
+    localStorage.setItem('currentColor', color);
   };
+
   const addToPalette = color => {
     onChangePalette(color);
+    setSquareColor(color);
+    onChange(color);
+    localStorage.setItem('currentColor', color);
   };
+
+  const handleTemporaryColorChange = tempColor => {
+    setSquareColor(tempColor);
+  };
+
   return (
-    <div className={style.Container}>
+    <div className={style.Container} ref={elRef}>
       <div className={style.Menu}>
-        <div className={style.Number}>{value}</div>
+        <div className={style.Number}>{squareColor}</div>
         <div className={style.Square} onClick={handleSquareClick}>
-          <div style={{ backgroundColor: value }} className={style.Color}></div>
+          <div
+            style={{ backgroundColor: squareColor }}
+            className={style.Color}
+          ></div>
         </div>
         <div className={style.Arrow} onClick={handleArrowClick}>
           <ChevronDown className={style.Icon} />
@@ -56,9 +84,11 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
 
       {showPalette && (
         <Palette
+          value={value}
           togglePalette={togglePalette}
           onColorChange={handleColorChange}
           addColorToUsersPalette={addToPalette}
+          onTemporaryColorChange={handleTemporaryColorChange}
         />
       )}
       {showUserPalette && (

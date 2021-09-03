@@ -10,7 +10,7 @@ function App() {
 
   function handleOnChange(color) {
     setValue(color);
-    console.log('value in app callback', color);
+    console.log('value is updated');
     //here will be chosen color and addin it to the array of colors
     // if (chosenColor) {
     //   setSelectedColors([...selectedColors, chosenColor]);

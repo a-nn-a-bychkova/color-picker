@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
 import style from './Palette.module.css';
 
-function Slider({ onColorChange, addColorToUsersPalette, togglePalette }) {
+function Slider({
+  value,
+  onColorChange,
+  addColorToUsersPalette,
+  togglePalette,
+  onTemporaryColorChange,
+}) {
   const [red, setRed] = useState('255');
-  const [green, setGreen] = useState('255');
-  const [blue, setBlue] = useState('255');
-  const [color, setColor] = useState('');
+  const [green, setGreen] = useState('00');
+  const [blue, setBlue] = useState('00');
+  const [color, setColor] = useState(value);
+
   useEffect(() => {
-    onColorChange(color);
+    onTemporaryColorChange(color);
   }, [color, setColor]);
 
   function handleChangeRed(e) {
@@ -53,14 +60,17 @@ function Slider({ onColorChange, addColorToUsersPalette, togglePalette }) {
 
   const handleCancelBtnClick = event => {
     event.preventDefault();
-    setColor(localStorage.getItem('currentColor'));
+    onTemporaryColorChange(localStorage.getItem('currentColor'));
     togglePalette();
   };
 
   const handleOKClick = event => {
     event.preventDefault();
-    addColorToUsersPalette(color);
-    localStorage.setItem('currentColor', color);
+    let chosenColor = color;
+    console.log('colro in OK', chosenColor);
+    addColorToUsersPalette(chosenColor);
+    onColorChange(chosenColor);
+    localStorage.setItem('currentColor', chosenColor);
     togglePalette();
   };
 
