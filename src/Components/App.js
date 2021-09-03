@@ -6,18 +6,11 @@ function App() {
   const [value, setValue] = useState('#ff0000');
   const [colors, setColors] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [value]);
 
   function handleOnChange(color) {
     setValue(color);
-    console.log('value is updated');
-    //here will be chosen color and addin it to the array of colors
-    // if (chosenColor) {
-    //   setSelectedColors([...selectedColors, chosenColor]);
-    //   console.log('selectedColorsArray', selectedColors);
-    // } else {
-    //   return;
-    // }
+    console.log('value in app is updated', color);
   }
   function handleChangePalette(newColor) {
     setColors([...colors, newColor]);

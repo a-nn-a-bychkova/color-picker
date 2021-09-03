@@ -7,7 +7,6 @@ import UserPalette from '../UserPalette';
 function ColorPicker({ value, onChange, colors, onChangePalette }) {
   const [showPalette, setShowPalette] = useState(false);
   const [showUserPalette, setShowUserPalette] = useState(false);
-  const [temporaryColor, setTemporaryColor] = useState('#00ff00');
   const [squareColor, setSquareColor] = useState(value);
 
   const elRef = useRef();
@@ -16,6 +15,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     function handleMouseUp(event) {
       const isElementChild = elRef.current.contains(event.target);
       if (!isElementChild) {
+        setSquareColor(value);
         setShowPalette(false);
         setShowUserPalette(false);
       }
@@ -24,7 +24,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     return () => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, []);
+  }, [value]);
 
   function togglePalette() {
     if (showUserPalette) {
@@ -52,15 +52,11 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
 
   const handleColorChange = color => {
     onChange(color);
-    setSquareColor(color);
-    localStorage.setItem('currentColor', color);
   };
 
   const addToPalette = color => {
     onChangePalette(color);
     setSquareColor(color);
-    onChange(color);
-    localStorage.setItem('currentColor', color);
   };
 
   const handleTemporaryColorChange = tempColor => {
@@ -96,6 +92,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
           colors={colors}
           onColorChange={handleColorChange}
           toggleUserPalette={toggleUserPalette}
+          onTemporaryColorChange={handleTemporaryColorChange}
         />
       )}
     </div>

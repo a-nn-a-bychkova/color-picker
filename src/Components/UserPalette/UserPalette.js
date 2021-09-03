@@ -2,7 +2,12 @@ import { useEffect } from 'react';
 import style from './UserPalette.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-function ModalPalette({ colors, toggleUserPalette, onColorChange }) {
+function ModalPalette({
+  colors,
+  toggleUserPalette,
+  onColorChange,
+  onTemporaryColorChange,
+}) {
   useEffect(() => {}, []);
   // const deleteColor = key => {
   //   console.log(key);
@@ -12,7 +17,7 @@ function ModalPalette({ colors, toggleUserPalette, onColorChange }) {
     event.preventDefault();
     console.log('value in user', event.target.innerText);
     onColorChange(event.target.innerText);
-    localStorage.setItem('currentColor', event.target.innerText);
+    onTemporaryColorChange(event.target.innerText);
     toggleUserPalette();
   };
 

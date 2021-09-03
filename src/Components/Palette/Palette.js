@@ -8,14 +8,14 @@ function Slider({
   togglePalette,
   onTemporaryColorChange,
 }) {
-  const [red, setRed] = useState('255');
-  const [green, setGreen] = useState('00');
-  const [blue, setBlue] = useState('00');
+  const [red, setRed] = useState(parseInt(value.slice(1, 3), 16));
+  const [green, setGreen] = useState(parseInt(value.slice(3, 5), 16));
+  const [blue, setBlue] = useState(parseInt(value.slice(6), 16));
   const [color, setColor] = useState(value);
 
   useEffect(() => {
     onTemporaryColorChange(color);
-  }, [color, setColor]);
+  }, [color, setColor, value]);
 
   function handleChangeRed(e) {
     e.preventDefault();
@@ -60,7 +60,7 @@ function Slider({
 
   const handleCancelBtnClick = event => {
     event.preventDefault();
-    onTemporaryColorChange(localStorage.getItem('currentColor'));
+    onTemporaryColorChange(value);
     togglePalette();
   };
 
@@ -70,7 +70,7 @@ function Slider({
     console.log('colro in OK', chosenColor);
     addColorToUsersPalette(chosenColor);
     onColorChange(chosenColor);
-    localStorage.setItem('currentColor', chosenColor);
+    onTemporaryColorChange(chosenColor);
     togglePalette();
   };
 
