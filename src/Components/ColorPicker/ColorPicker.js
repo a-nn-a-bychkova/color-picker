@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import style from './ColorPicker.module.css';
 import { ChevronDown } from 'react-feather';
 import Palette from '../Palette';
+import UserPalette from '../UserPalette';
 
 function ColorPicker({ value, onChange, colors, onChangePalette }) {
   const [showPalette, setShowPalette] = useState(false);
@@ -23,6 +24,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     }
     setShowUserPalette(!showUserPalette);
   }
+
   const handleSquareClick = event => {
     event.preventDefault();
     event.stopPropagation();
@@ -31,9 +33,9 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
 
   const handleArrowClick = event => {
     event.preventDefault();
-
     toggleUserPalette();
   };
+
   const handleColorChange = color => {
     onChange(color);
   };
@@ -57,6 +59,13 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
           togglePalette={togglePalette}
           onColorChange={handleColorChange}
           addColorToUsersPalette={addToPalette}
+        />
+      )}
+      {showUserPalette && (
+        <UserPalette
+          colors={colors}
+          onColorChange={handleColorChange}
+          toggleUserPalette={toggleUserPalette}
         />
       )}
     </div>

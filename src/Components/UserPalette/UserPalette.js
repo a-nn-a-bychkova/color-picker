@@ -1,26 +1,27 @@
 import { useEffect } from 'react';
-import Context from '../../contexts/context';
-import style from './ModalPalette.module.css';
-import { X } from 'react-feather';
+import style from './UserPalette.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-function ModalPalette({}) {
-  const { chosenColor, setChosenColor } = useContext(Context);
+function ModalPalette({ colors, toggleUserPalette, onColorChange }) {
   useEffect(() => {}, []);
   // const deleteColor = key => {
   //   console.log(key);
   // };
 
   const handleClickChooseColor = event => {
-    // toggleModalPalette();
+    event.preventDefault();
+    console.log('value in user', event.target.innerText);
+    onColorChange(event.target.innerText);
+    localStorage.setItem('currentColor', event.target.innerText);
+    toggleUserPalette();
   };
 
   return (
     <div className={style.Container}>
       <h2 className={style.Text}>Your color collection</h2>
-      {selectedColors && (
+      {colors && (
         <ul className={style.List}>
-          {selectedColors.map(color => (
+          {colors.map(color => (
             <li
               key={uuidv4()}
               className={style.Item}
