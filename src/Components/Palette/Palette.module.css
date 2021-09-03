@@ -1,0 +1,99 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  height: 90px;
+  z-index: 2;
+  position: absolute;
+  top: 60px;
+  left: 25px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.ButtonContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.CancelButton {
+  font-size: 12px;
+  width: 60px;
+  height: 20px;
+  color: #000000;
+  text-transform: uppercase;
+  background-color: #b6b6b4;
+  margin-right: 20px;
+  border: 1px solid #000000;
+}
+.OkButton {
+  font-size: 12px;
+  width: 60px;
+  height: 20px;
+  color: #ffffff;
+  text-transform: uppercase;
+  background-color: #8fbc8f;
+  border: 1px solid #000000;
+}
+
+.Slider {
+  width: 150px;
+  height: 70px;
+}
+.redInput {
+  appearance: none;
+  height: 4px;
+  background: linear-gradient(to right, #ff0000, #000000);
+  cursor: pointer;
+}
+
+.greenInput {
+  appearance: none;
+  height: 4px;
+  background: linear-gradient(to right, #00ff00, #000000);
+}
+.blueInput {
+  appearance: none;
+  height: 4px;
+  background: linear-gradient(to right, #0000ff, #000000);
+}
+
+.redInput::-webkit-slider-thumb,
+.greenInput::-webkit-slider-thumb,
+.blueInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.redInput::-moz-range-thumb,
+.greenInput::-moz-range-thumb,
+.blueInput::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+.redInput::-ms-thumb,
+.greenInput::-ms-thumb,
+.blueInput::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
