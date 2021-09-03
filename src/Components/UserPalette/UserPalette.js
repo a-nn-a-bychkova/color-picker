@@ -9,13 +9,9 @@ function ModalPalette({
   onTemporaryColorChange,
 }) {
   useEffect(() => {}, []);
-  // const deleteColor = key => {
-  //   console.log(key);
-  // };
 
   const handleClickChooseColor = event => {
     event.preventDefault();
-    console.log('value in user', event.target.innerText);
     onColorChange(event.target.innerText);
     onTemporaryColorChange(event.target.innerText);
     toggleUserPalette();

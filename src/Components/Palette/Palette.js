@@ -15,7 +15,7 @@ function Slider({
 
   useEffect(() => {
     onTemporaryColorChange(color);
-  }, [color, setColor, value]);
+  }, [color, setColor, value, onTemporaryColorChange]);
 
   function handleChangeRed(e) {
     e.preventDefault();
@@ -30,10 +30,9 @@ function Slider({
       rgb
         .map(function (x) {
           x = parseInt(x).toString(16);
-          return x.length == 1 ? '0' + x : x;
+          return x.length === 1 ? '0' + x : x;
         })
         .join('');
-
     return hex;
   }
 
@@ -67,7 +66,6 @@ function Slider({
   const handleOKClick = event => {
     event.preventDefault();
     let chosenColor = color;
-    console.log('colro in OK', chosenColor);
     addColorToUsersPalette(chosenColor);
     onColorChange(chosenColor);
     onTemporaryColorChange(chosenColor);

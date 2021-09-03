@@ -10,7 +10,6 @@ function App() {
 
   function handleOnChange(color) {
     setValue(color);
-    console.log('value in app is updated', color);
   }
   function handleChangePalette(newColor) {
     setColors([...colors, newColor]);
