@@ -38,7 +38,6 @@ function UserPalette({
                   border: '1px solid #b6b6b4',
                 }}
               ></div>
-              {/* <X onClick={deleteColor(key)} /> */}
             </li>
           ))}
         </ul>
