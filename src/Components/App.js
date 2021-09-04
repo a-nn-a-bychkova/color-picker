@@ -10,6 +10,7 @@ function App() {
 
   function handleOnChange(color) {
     setValue(color);
+    localStorage.setItem('value', value);
   }
   function handleChangePalette(newColor) {
     setColors([...colors, newColor]);

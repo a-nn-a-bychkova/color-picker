@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import style from './UserPalette.module.css';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
-function ModalPalette({
+function UserPalette({
   colors,
   toggleUserPalette,
   onColorChange,
@@ -45,4 +46,11 @@ function ModalPalette({
     </div>
   );
 }
-export default ModalPalette;
+export default UserPalette;
+
+UserPalette.propTypes = {
+  colors: PropTypes.arrayOf(PropTypes.string),
+  onColorChange: PropTypes.func,
+  toggleUserPalette: PropTypes.func,
+  onTemporaryColorChange: PropTypes.func,
+};

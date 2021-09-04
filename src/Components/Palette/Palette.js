@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import style from './Palette.module.css';
+import PropTypes from 'prop-types';
 
-function Slider({
+function Palette({
   value,
   onColorChange,
   addColorToUsersPalette,
@@ -47,14 +48,6 @@ function Slider({
     let newBlue = `${e.target.value}`;
     setBlue(newBlue);
     setColor(convertColors([red, green, newBlue]));
-    // mixColors(red, green, newBlue);
-    // if (newBlue > 100) {
-    //   setBlue(newBlue);
-    //   mixColors(red, green, newBlue);
-    // } else if (newBlue >= 0) {
-    //   setBlue(newBlue.padStart(3, '0'));
-    //   mixColors(red, green, newBlue.padStart(3, '0'));
-    // }
   }
 
   const handleCancelBtnClick = event => {
@@ -124,4 +117,11 @@ function Slider({
   );
 }
 
-export default Slider;
+export default Palette;
+Palette.propTypes = {
+  value: PropTypes.string,
+  togglePalette: PropTypes.func,
+  onColorChange: PropTypes.func,
+  addColorToUsersPalette: PropTypes.func,
+  onTemporaryColorChange: PropTypes.func,
+};

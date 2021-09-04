@@ -3,6 +3,7 @@ import style from './ColorPicker.module.css';
 import { ChevronDown } from 'react-feather';
 import Palette from '../Palette';
 import UserPalette from '../UserPalette';
+import PropTypes from 'prop-types';
 
 function ColorPicker({ value, onChange, colors, onChangePalette }) {
   const [showPalette, setShowPalette] = useState(false);
@@ -14,6 +15,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
   useEffect(() => {
     function handleMouseUp(event) {
       const isElementChild = elRef.current.contains(event.target);
+
       if (!isElementChild) {
         setSquareColor(value);
         setShowPalette(false);
@@ -24,7 +26,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     return () => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [value]);
+  }, [value, onChange, handleColorChange]);
 
   function togglePalette() {
     if (showUserPalette) {
@@ -50,9 +52,9 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     toggleUserPalette();
   };
 
-  const handleColorChange = color => {
+  function handleColorChange(color) {
     onChange(color);
-  };
+  }
 
   const addToPalette = color => {
     onChangePalette(color);
@@ -99,3 +101,10 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
   );
 }
 export default ColorPicker;
+
+ColorPicker.propTypes = {
+  value: PropTypes.string,
+  colors: PropTypes.arrayOf(PropTypes.string),
+  onChahge: PropTypes.func,
+  onChangePalette: PropTypes.func,
+};
