@@ -29,14 +29,15 @@
   font-size: 12px;
   list-style: none;
   color: #85857c;
-  justify-content: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  padding-left: 15px;
   align-items: center;
   height: 30px;
-  margin-bottom: 10px;
 }
 
 .Item:hover,
-Item:focus {
+.Item:focus {
   background-color: #b6b6d4;
   color: #ffffff;
 }
