@@ -25,7 +25,7 @@
 
 .CancelButton {
   font-size: 12px;
-  width: 60px;
+  width: 70px;
   height: 20px;
   color: #000000;
   text-align: center;
@@ -36,7 +36,7 @@
 }
 .OkButton {
   font-size: 12px;
-  width: 60px;
+  width: 70px;
   height: 20px;
   color: #ffffff;
   text-transform: uppercase;

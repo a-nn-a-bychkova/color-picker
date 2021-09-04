@@ -26,7 +26,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     return () => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [value, onChange, handleColorChange]);
+  }, [value, onChange]);
 
   function togglePalette() {
     if (showUserPalette) {
@@ -52,9 +52,9 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     toggleUserPalette();
   };
 
-  function handleColorChange(color) {
+  const handleColorChange = color => {
     onChange(color);
-  }
+  };
 
   const addToPalette = color => {
     onChangePalette(color);
