@@ -5,7 +5,7 @@ import Palette from '../Palette';
 import UserPalette from '../UserPalette';
 import PropTypes from 'prop-types';
 
-function ColorPicker({ value, onChange, colors, onChangePalette }) {
+function ColorPicker({ value, onChange, colors }) {
   const [showPalette, setShowPalette] = useState(false);
   const [showUserPalette, setShowUserPalette] = useState(false);
   const [squareColor, setSquareColor] = useState(value);
@@ -52,13 +52,14 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
     toggleUserPalette();
   };
 
-  const handleColorChange = color => {
-    onChange(color);
+  const dismissDropdowns = () => {
+    setShowPalette(false);
+    setShowUserPalette(false);
   };
 
-  const addToPalette = color => {
-    onChangePalette(color);
-    setSquareColor(color);
+  const handleColorChange = color => {
+    onChange(color);
+    dismissDropdowns();
   };
 
   const handleTemporaryColorChange = tempColor => {
@@ -68,7 +69,9 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
   return (
     <div className={style.Container} ref={elRef}>
       <div className={style.Menu}>
-        <div className={style.Number}>{squareColor}</div>
+        <div className={style.Number} onClick={dismissDropdowns}>
+          {squareColor}
+        </div>
         <div className={style.Square} onClick={handleSquareClick}>
           <div
             style={{ backgroundColor: squareColor }}
@@ -83,17 +86,15 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
       {showPalette && (
         <Palette
           value={value}
-          togglePalette={togglePalette}
           onColorChange={handleColorChange}
-          addColorToUsersPalette={addToPalette}
           onTemporaryColorChange={handleTemporaryColorChange}
+          onCancelColorSelection={dismissDropdowns}
         />
       )}
       {showUserPalette && (
         <UserPalette
           colors={colors}
           onColorChange={handleColorChange}
-          toggleUserPalette={toggleUserPalette}
           onTemporaryColorChange={handleTemporaryColorChange}
         />
       )}
@@ -103,8 +104,7 @@ function ColorPicker({ value, onChange, colors, onChangePalette }) {
 export default ColorPicker;
 
 ColorPicker.propTypes = {
-  value: PropTypes.string,
-  colors: PropTypes.arrayOf(PropTypes.string),
-  onChahge: PropTypes.func,
-  onChangePalette: PropTypes.func,
+  value: PropTypes.string.isRequired,
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChange: PropTypes.func.isRequired,
 };

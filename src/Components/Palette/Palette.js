@@ -5,9 +5,8 @@ import PropTypes from 'prop-types';
 function Palette({
   value,
   onColorChange,
-  addColorToUsersPalette,
-  togglePalette,
   onTemporaryColorChange,
+  onCancelColorSelection,
 }) {
   const [red, setRed] = useState(parseInt(value.slice(1, 3), 16));
   const [green, setGreen] = useState(parseInt(value.slice(3, 5), 16));
@@ -16,17 +15,10 @@ function Palette({
 
   useEffect(() => {
     onTemporaryColorChange(color);
-  }, [color, setColor, value, onTemporaryColorChange]);
-
-  function handleChangeRed(e) {
-    e.preventDefault();
-    let newRed = e.target.value;
-    setRed(newRed);
-    setColor(convertColors([newRed, green, blue]));
-  }
+  }, [color, value, onTemporaryColorChange]);
 
   function convertColors(rgb) {
-    let hex =
+    const hex =
       '#' +
       rgb
         .map(function (x) {
@@ -37,15 +29,23 @@ function Palette({
     return hex;
   }
 
+  function handleChangeRed(e) {
+    e.preventDefault();
+    const newRed = e.target.value;
+    setRed(newRed);
+    setColor(convertColors([newRed, green, blue]));
+  }
+
   function handleChangeGreen(e) {
     e.preventDefault();
-    let newGreen = e.target.value;
+    const newGreen = e.target.value;
     setGreen(newGreen);
     setColor(convertColors([red, newGreen, blue]));
   }
+
   function handleChangeBlue(e) {
     e.preventDefault();
-    let newBlue = `${e.target.value}`;
+    const newBlue = e.target.value;
     setBlue(newBlue);
     setColor(convertColors([red, green, newBlue]));
   }
@@ -53,20 +53,18 @@ function Palette({
   const handleCancelBtnClick = event => {
     event.preventDefault();
     onTemporaryColorChange(value);
-    togglePalette();
+    onCancelColorSelection();
   };
 
   const handleOKClick = event => {
     event.preventDefault();
-    let chosenColor = color;
-    addColorToUsersPalette(chosenColor);
-    onColorChange(chosenColor);
-    onTemporaryColorChange(chosenColor);
-    togglePalette();
+    onColorChange(color);
+    onTemporaryColorChange(color);
   };
 
   return (
     <div className={style.Container}>
+      <div className={style.Triangle}></div>
       <div className={style.Slider}>
         <input
           type="range"
@@ -118,10 +116,10 @@ function Palette({
 }
 
 export default Palette;
+
 Palette.propTypes = {
-  value: PropTypes.string,
-  togglePalette: PropTypes.func,
-  onColorChange: PropTypes.func,
-  addColorToUsersPalette: PropTypes.func,
-  onTemporaryColorChange: PropTypes.func,
+  value: PropTypes.string.isRequired,
+  onColorChange: PropTypes.func.isRequired,
+  onTemporaryColorChange: PropTypes.func.isRequired,
+  onCancelColorSelection: PropTypes.func.isRequired,
 };

@@ -3,17 +3,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 220px;
+  width: 200px;
   height: 120px;
   z-index: 2;
   position: absolute;
-  top: 35px;
-  left: -30px;
+  top: 42px;
+  left: 0px;
   padding-top: 15px;
   padding-bottom: 20px;
   background-color: #ffffff;
   color: #ffffff;
-  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -53,7 +52,7 @@
   appearance: none;
   width: 180px;
   height: 4px;
-  background: linear-gradient(to right, #ff0000, #000000);
+  background: linear-gradient(to left, #ff0000, #000000);
   cursor: pointer;
   margin-bottom: 10px;
 }
@@ -62,14 +61,14 @@
   appearance: none;
   width: 180px;
   height: 4px;
-  background: linear-gradient(to right, #00ff00, #000000);
+  background: linear-gradient(to left, #00ff00, #000000);
   margin-bottom: 10px;
 }
 .blueInput {
   appearance: none;
   width: 180px;
   height: 4px;
-  background: linear-gradient(to right, #0000ff, #000000);
+  background: linear-gradient(to left, #0000ff, #000000);
 }
 
 .redInput::-webkit-slider-thumb,
@@ -103,4 +102,14 @@
   border-radius: 3px;
   background: #ffffff;
   cursor: pointer;
+}
+.Triangle {
+  position: absolute;
+  top: -10px;
+  left: 163px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid #ffffff;
 }

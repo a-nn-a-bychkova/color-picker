@@ -1,55 +1,39 @@
-import { useEffect } from 'react';
 import style from './UserPalette.module.css';
-import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
-function UserPalette({
-  colors,
-  toggleUserPalette,
-  onColorChange,
-  onTemporaryColorChange,
-}) {
-  useEffect(() => {}, []);
-
-  const handleClickChooseColor = event => {
+function UserPalette({ colors, onColorChange, onTemporaryColorChange }) {
+  function handleClickChooseColor(color, event) {
     event.preventDefault();
-    onColorChange(event.target.innerText);
-    onTemporaryColorChange(event.target.innerText);
-    toggleUserPalette();
-  };
+    onColorChange(color);
+    onTemporaryColorChange(color);
+  }
 
   return (
     <div className={style.Container}>
+      <div className={style.Triangle}></div>
       <h2 className={style.Text}>Your color collection</h2>
-      {colors && (
-        <ul className={style.List}>
-          {colors.map(color => (
-            <li
-              key={uuidv4()}
-              className={style.Item}
-              onClick={handleClickChooseColor}
-            >
-              <h2 className={style.ItemText}>{color}</h2>
-              <div
-                style={{
-                  width: '15px',
-                  height: '15px',
-                  backgroundColor: color,
-                  border: '1px solid #b6b6b4',
-                }}
-              ></div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className={style.List}>
+        {colors.map(color => (
+          <li
+            key={color}
+            className={style.Item}
+            onClick={handleClickChooseColor.bind(this, color)}
+          >
+            <h2 className={style.ItemText}>{color}</h2>
+            <div
+              style={{ backgroundColor: color }}
+              className={style.Square}
+            ></div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 export default UserPalette;
 
 UserPalette.propTypes = {
-  colors: PropTypes.arrayOf(PropTypes.string),
-  onColorChange: PropTypes.func,
-  toggleUserPalette: PropTypes.func,
-  onTemporaryColorChange: PropTypes.func,
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onColorChange: PropTypes.func.isRequired,
+  onTemporaryColorChange: PropTypes.func.isRequired,
 };

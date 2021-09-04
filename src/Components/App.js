@@ -1,29 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import ColorPicker from './ColorPicker';
 
 function App() {
   const [value, setValue] = useState('#ff0000');
-  const [colors, setColors] = useState([]);
-
-  useEffect(() => {}, [value]);
+  const [colors, setColors] = useState(['#ff0000']);
 
   function handleOnChange(color) {
     setValue(color);
+    if (!colors.includes(color)) {
+      setColors(colors.concat(color));
+    }
+
     localStorage.setItem('value', value);
-  }
-  function handleChangePalette(newColor) {
-    setColors([...colors, newColor]);
   }
 
   return (
     <div className="App">
-      <ColorPicker
-        onChange={handleOnChange}
-        colors={colors}
-        value={value}
-        onChangePalette={handleChangePalette}
-      />
+      <ColorPicker onChange={handleOnChange} colors={colors} value={value} />
     </div>
   );
 }
